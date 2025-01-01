@@ -1,4 +1,4 @@
-name: Deploy to Render
+name: Deploy Docker Image to Render
 
 on:
   workflow_run:
@@ -10,14 +10,13 @@ on:
       - main
 
 jobs:
-  deploy_to_render:
-    runs-on: ubuntu-20.04
-    name: Deploy to Render
+  deploy:
+    runs-on: ubuntu-latest
     steps:
-      - name: Deploying to Render
-        id: render_deploy
-        uses: MrAmericanMike/trigger-render-deploy@0.0.1
+      - name: Deploy to Render
+        uses: gh-actions-workflows/deploy-docker-render@v1.1
         with:
-          render-service-id: ${{ secrets.RENDER_SERVICE_ID }}
+          deploy-hook: ${{ secrets.RENDER_DEPLOY_HOOK }}
+          image-url: my-dockerhub-user/my-app:my-tag
           render-api-key: ${{ secrets.RENDER_API_KEY }}
-          wait-for-success: true
+          wait-for-deployment: true
