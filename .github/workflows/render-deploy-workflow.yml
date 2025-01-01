@@ -3,7 +3,7 @@ name: Deploy to Render
 on:
   workflow_run:
     workflows:
-      - Deployment pipeline
+      - Deploy to Dockerhub
     types:
       - completed
     branches:
