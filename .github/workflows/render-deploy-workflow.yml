@@ -1,4 +1,4 @@
-name: Deploy Docker Image to Render
+name: Re-Deploy Docker Image to Render
 
 on:
   workflow_run:
@@ -10,13 +10,11 @@ on:
       - main
 
 jobs:
-  deploy:
+  redeploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to Render
-        uses: gh-actions-workflows/deploy-docker-render@v1.1
-        with:
-          deploy-hook: ${{ secrets.RENDER_DEPLOY_HOOK }}
-          image-url: my-dockerhub-user/my-app:my-tag
-          render-api-key: ${{ secrets.RENDER_API_KEY }}
-          wait-for-deployment: true
+      - name: Redeploy to Render
+        env:
+          DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+        run: |
+          curl -X POST "$DEPLOY_HOOK"
