@@ -12,7 +12,6 @@ on:
 jobs:
   deploy_to_render:
     runs-on: ubuntu-20.04
-    environment: Render Deployment Workflow
     name: Deploy to Render
     steps:
       - name: Deploying to Render
