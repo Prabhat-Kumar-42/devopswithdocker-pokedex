@@ -1,0 +1,24 @@
+name: Deploy to Render
+
+on:
+  workflow_run:
+    workflows:
+      - Deployment pipeline
+    types:
+      - completed
+    branches:
+      - main
+
+jobs:
+  deploy_to_render:
+    runs-on: ubuntu-20.04
+    environment: Render Deployment Workflow
+    name: Deploy to Render
+    steps:
+      - name: Deploying to Render
+        id: render_deploy
+        uses: MrAmericanMike/trigger-render-deploy@0.0.1
+        with:
+          render-service-id: ${{ secrets.RENDER_SERVICE_ID }}
+          render-api-key: ${{ secrets.RENDER_API_KEY }}
+          wait-for-success: true
